@@ -14,23 +14,31 @@
   </div>
   <div class="row canvas">
     <div class="col-xs-12 col-md-3 ">
-      <div *ngIf="weatherdetails" class="row weather-card">
-        <mat-card class="example-card">
+      <div *ngIf="weatherdetails" >
+        <mat-card class="weather-card">
           <mat-card-title-group>
             <mat-card-title>{{(weatherdetails?.main?.temp-273.15).toFixed(2)}}°C</mat-card-title>
             <mat-card-subtitle>{{weatherdetails?.name}}</mat-card-subtitle>
-            <img mat-card-xs-image [src]="iconurl">
+            <img mat-card-xs-image [src]="iconurl" height="50px">
           </mat-card-title-group>
           <mat-card-content> 
-            <p class="h5">Feels like {{(weatherdetails?.main?.feels_like-273.15).toFixed(2)}}°C</p></mat-card-content>
-          <mat-card-content></mat-card-content>
+            <span class="h5"> {{weatherdetails?.weather[0]?.main}}</span>
+            <span class="text text-right"> -  {{weatherdetails?.weather[0]?.description}}</span>
+          </mat-card-content>
+          <mat-card-content> 
+            
+          </mat-card-content>
+          
+          <mat-card-content>
+            <p >Feels like {{(weatherdetails?.main?.feels_like-273.15).toFixed(2)}}°C</p>
+          </mat-card-content>
           <mat-card-content></mat-card-content>
         </mat-card>
       </div>
-      <div *ngIf="weatherdetails" class="row forecast-card">
+      <div class="forecast-card">
         <mat-card>
           <mat-card-title-group>
-            <mat-card-title>{{weatherdetails?.name}} Forecast</mat-card-title>
+            <mat-card-title *ngIf="forecastList">{{weatherdetails?.name}} Forecast</mat-card-title>
             <mat-card-subtitle *ngIf="!forecastList">Please click any place on map to get more data</mat-card-subtitle>
           </mat-card-title-group>
           <mat-card-content>
@@ -59,7 +67,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <div class="row historic"></div>
+      <div class="historic"></div>
     </div>
     <div class="col-xs-12 col-md-9">
       <div id="map">

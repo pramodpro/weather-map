@@ -24,16 +24,14 @@ export class AppComponent implements OnInit, OnDestroy {
   map!: google.maps.Map;
   constructor(private mapServce: openWeatherMapService,private gmap:GMapService) {
   }
+  
   initMap(): void {
     const udupi = { lat: 13.340, lng: 74.742 };
     this.map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
         zoom: 9,
-        center: udupi,
-        styles: this.nightmode ? nightmodeStyle : [],
-        disableDefaultUI:true,
-        
+        center: udupi,       
       }
     );
     const marker = new google.maps.Marker({
@@ -69,6 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     //this.searchPlaces();
   }
+
   weatherData(): void {
     this.mapServce.getWeatherData(this.coord).subscribe((data:any) => {
       this.weatherdetails = data;
@@ -167,8 +166,10 @@ export class AppComponent implements OnInit, OnDestroy {
     })
     this.openWeatherMap()
   }
+
   ngOnDestroy(): void {
   }
+
   openWeatherMap() {
     var getNormalizedCoord = this.gmap.getNormalizedCoord
     var myMapType = new google.maps.ImageMapType({
@@ -190,6 +191,4 @@ export class AppComponent implements OnInit, OnDestroy {
   // this.map.setMapTypeId('mymaptype');
   this.map.overlayMapTypes.insertAt(0, myMapType);
   }
- 
-
 }
