@@ -15,6 +15,7 @@ body {
   .weather-card {
     z-index: 1;
     height: 150px;
+    margin:0 0 10px 10px;
   }
 .example-card {
   background: radial-gradient(circle, rgba(156,130,141,1) 0%, rgba(140,148,159,1) 100%);
@@ -26,6 +27,7 @@ body {
   height: 650px;
   overflow: scroll;
   border-radius: 10px;
+  margin-left: 10px;
 }
 .forecast-card::-webkit-scrollbar {
   display: none;
@@ -33,4 +35,73 @@ body {
 
 .mat-table {
   width: 100%;
+}
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: Roboto;
+  padding: 0;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 300;
+  margin-left: 12px;
+  margin-top: 10px;
+  padding: 10px 11px 5px 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
 }

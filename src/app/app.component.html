@@ -10,34 +10,39 @@
     <div class="header text-center"><h1>Weather Forecast</h1></div>
   </div>
   <div class="row canvas">
-    <div class="col-xs-12 col-md-2 ">
-      <div *ngIf="weatherdetails" class="weather-card">
+    <div class="col-xs-12 col-md-3 ">
+      <div *ngIf="weatherdetails" class="row weather-card">
         <mat-card class="example-card">
           <mat-card-title-group>
-            <mat-card-title>{{weatherdetails?.name}}</mat-card-title>
-            <mat-card-subtitle>{{weatherdetails?.weather?.main}}</mat-card-subtitle>
-            <img mat-card-xs-image [src]="iconurl" >
+            <mat-card-title>{{(weatherdetails?.main?.temp-273.15).toFixed(2)}}°C</mat-card-title>
+            <mat-card-subtitle>{{weatherdetails?.name}}</mat-card-subtitle>
+            <img mat-card-xs-image [src]="iconurl">
           </mat-card-title-group>
-          <mat-card-content>
-            {{weatherdetails?.weather[0]?.description}}
-          </mat-card-content>
+          <mat-card-content> 
+            <p class="h5">Feels like {{(weatherdetails?.main?.feels_like-273.15).toFixed(2)}}°C</p></mat-card-content>
+          <mat-card-content></mat-card-content>
+          <mat-card-content></mat-card-content>
         </mat-card>
       </div>
-      <div *ngIf="weatherdetails" class="forecast-card">
+      <div *ngIf="weatherdetails" class="row forecast-card">
         <mat-card>
           <mat-card-title-group>
             <mat-card-title>{{weatherdetails?.name}} Forecast</mat-card-title>
-            <mat-card-subtitle *ngIf="!forecastList">Please click any places on map to get more data</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="!forecastList">Please click any place on map to get more data</mat-card-subtitle>
           </mat-card-title-group>
           <mat-card-content>
             <table mat-table [dataSource]="forecastList" class="mat-elevation-z8" *ngIf="forecastList">
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> date </th>
+                <td mat-cell *matCellDef="let element"> {{(element?.time | date:'mediumDate')!.split(',')[0]}} </td>
+              </ng-container>
               <ng-container matColumnDef="time">
                 <th mat-header-cell *matHeaderCellDef> time </th>
                 <td mat-cell *matCellDef="let element"> {{element.time | date:'shortTime'}} </td>
               </ng-container>
               <ng-container matColumnDef="temp">
                 <th mat-header-cell *matHeaderCellDef> temp </th>
-                <td mat-cell *matCellDef="let element"> {{element.temp}} </td>
+                <td mat-cell *matCellDef="let element"> {{(element.temp-273.15).toFixed(2)}}°C </td>
               </ng-container>
               <ng-container matColumnDef="icon">
                 <th mat-header-cell *matHeaderCellDef> </th>
@@ -51,32 +56,21 @@
           </mat-card-content>
         </mat-card>
       </div>
+      <div class="row historic"></div>
     </div>
-    <div class="col-xs-12 col-md-8">
-      <div id="map"></div>
-    </div>
-    <div class="col-xs-12 col-md-2">
-      
-      <mat-card>
-        <mat-card-title-group>
-          <mat-card-title>Search Places</mat-card-title>
-          <mat-card-subtitle></mat-card-subtitle>
-          <img mat-card-xs-image [src]="iconurl" >
-        </mat-card-title-group>
-        <mat-card-content>
-          <input
+    <div class="col-xs-12 col-md-9">
+      <div id="map">
+        
+      </div>
+      <div class="row">
+
+      </div>
+      <!-- <input
       id="pac-input"
       class="controls"
       type="text"
       placeholder="Search Box"
-    />
-          <!-- <div class="nightmode"><mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle value="night" (click)="nightmode=true">Night</mat-button-toggle>
-            <mat-button-toggle value="default">  &nbsp;Day&nbsp;</mat-button-toggle>
-          </mat-button-toggle-group></div> -->
-        </mat-card-content>
-      </mat-card>
-      
+    /> -->
     </div>
   </div>
 </div>

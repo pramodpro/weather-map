@@ -3,3 +3,7 @@ export interface forecastData {
     temperature: number;
     iconurl: number;
   }
+  export interface coordinates {
+    lat : string;
+    lon: string;
+  }
