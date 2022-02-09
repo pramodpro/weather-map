@@ -164,9 +164,6 @@ export class AppComponent implements OnInit, OnDestroy {
         lon: data?.coords?.longitude.toFixed(2)
       }
       this.weatherData();
-      this.mapServce.getprecipitaionData(this.coord).subscribe((data)=>{
-        console.log(data);
-      })
     })
     this.openWeatherMap()
   }
