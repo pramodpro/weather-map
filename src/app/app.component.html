@@ -14,9 +14,10 @@
   </div>
   <div class="row canvas">
     <div class="col-xs-12 col-md-3 ">
-      <div *ngIf="weatherdetails" >
+      <div >
         <mat-card class="weather-card">
-          <mat-card-title-group>
+          <mat-card-title *ngIf="!weatherdetails"> Click On Map</mat-card-title>
+          <mat-card-title-group *ngIf="weatherdetails">
             <mat-card-title>{{(weatherdetails?.main?.temp-273.15).toFixed(2)}}°C</mat-card-title>
             <mat-card-subtitle>{{weatherdetails?.name}}</mat-card-subtitle>
             <img mat-card-xs-image [src]="iconurl" height="50px">
@@ -25,11 +26,7 @@
             <span class="h5"> {{weatherdetails?.weather[0]?.main}}</span>
             <span class="text text-right"> -  {{weatherdetails?.weather[0]?.description}}</span>
           </mat-card-content>
-          <mat-card-content> 
-            
-          </mat-card-content>
-          
-          <mat-card-content>
+          <mat-card-content *ngIf="weatherdetails">
             <p >Feels like {{(weatherdetails?.main?.feels_like-273.15).toFixed(2)}}°C</p>
           </mat-card-content>
           <mat-card-content></mat-card-content>

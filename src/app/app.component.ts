@@ -14,11 +14,10 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'weather-map';
   coord :coordinates = { lat: "", lon: "" };
   iconurl = "";
-  $userPosition!:BehaviorSubject<any>;
+  $weatherDataSub!:any;
+  $userPositionSub!:any;
   nightmode = false;
-  weatherdetails: any = {
-    weather: []
-  };
+  weatherdetails: any = '';
   forecastList!: forecastData[];
   displayedColumns: string[] = ['date', 'time', 'temp', 'icon'];
   map!: google.maps.Map;
@@ -69,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   weatherData(): void {
-    this.mapServce.getWeatherData(this.coord).subscribe((data:any) => {
+    this.$weatherDataSub = this.mapServce.getWeatherData(this.coord).subscribe((data:any) => {
       this.weatherdetails = data;
       this.iconurl = `http://openweathermap.org/img/w/${this.weatherdetails?.weather[0]?.icon}.png`
     })
@@ -157,7 +156,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initMap()
-    this.mapServce.getUserPosition().subscribe((data: any) => {
+    this.$userPositionSub =this.mapServce.getUserPosition().subscribe((data: any) => {
       this.coord = {
         lat: data?.coords?.latitude.toFixed(2),
         lon: data?.coords?.longitude.toFixed(2)
@@ -168,6 +167,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.$weatherDataSub.unsubscribe();
+    this.$userPositionSub.unsubscribe();
   }
 
   openWeatherMap() {
