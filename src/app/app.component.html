@@ -6,13 +6,21 @@
   <body>
     
 <div class="container-fluid">
+  
   <div class="row map-title">
-    <mat-card>
-      <div class="header text-center"><h1>Weather Forecast</h1></div>
-    </mat-card>
-    
+    <div class="col-xs-12 mb-1 col-md-3">
+      <mat-card >
+        <div class="header text-center"><h1>Weather Forecast</h1></div>
+      </mat-card>
+    </div>
+    <div class="col-xs-12 mb-1 col-md-2">
+      <mat-card >
+        <mat-slide-toggle [(ngModel)]="mapType" (change)="updateMap()">Precipitation </mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="mapStyle" (change)="updateNightMode()">Night Mode </mat-slide-toggle>
+      </mat-card>
+    </div>
   </div>
-  <div class="row canvas">
+  <div class="row">
     <div class="col-xs-12 col-md-3 ">
       <div >
         <mat-card class="weather-card">
@@ -64,14 +72,11 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <div class="historic"></div>
     </div>
     <div class="col-xs-12 col-md-9">
-      <div id="map">
-        
-      </div>
-      <div class="row">
-
+      <div class="canvas">
+        <div id="map">
+        </div>
       </div>
       <!-- <input
       id="pac-input"

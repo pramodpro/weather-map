@@ -4,7 +4,6 @@ import { openWeatherMapService } from './services/openWeatherService/open.weathe
 import { forecastData } from '../assets/WeatherApp'
 import { coordinates } from './../assets/WeatherApp'
 import { GMapService } from './services/googleMapService/g-map.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,7 +20,12 @@ export class AppComponent implements OnInit, OnDestroy {
   forecastList!: forecastData[];
   displayedColumns: string[] = ['date', 'time', 'temp', 'icon'];
   map!: google.maps.Map;
+  mapType:boolean = false;
+  mapStyle:boolean = false;
+  nightMap = new google.maps.StyledMapType(nightmodeStyle)
+  
   constructor(private mapServce: openWeatherMapService,private gmap:GMapService) {
+    
   }
   
   initMap(): void {
@@ -29,10 +33,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
-        zoom: 9,
-        center: udupi,       
+        zoom: 6,
+        center: udupi,    
+        mapTypeControlOptions: {
+          mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
+        },   
       }
     );
+    
     const marker = new google.maps.Marker({
       position: udupi,
       map: this.map,
@@ -41,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
       content: "Click the map to get Lat/Lng!",
       position: udupi,
     });
-
+    this.map.mapTypes.set("styled_map", this.nightMap);
     //infoWindow.open(map);
 
     this.map.addListener("click", (mapsMouseEvent: any) => {
@@ -163,7 +171,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }
       this.weatherData();
     })
-    this.openWeatherMap()
+    //this.openWeatherMap()
   }
 
   ngOnDestroy(): void {
@@ -181,15 +189,36 @@ export class AppComponent implements OnInit, OnDestroy {
             return null;
           }
           var bound = Math.pow(2, zoom);
-        return "https://tile.openweathermap.org/map/wind_new/15/"+ coord.x+"/"+ coord.y+".png?appid=2eb61f63e47d19dd32b796a81c9a198c";
+        return "https://tile.openweathermap.org/map/precipitation_new/"+zoom+"/"+ normalizedCoord.x+"/"+ (bound - normalizedCoord.y - 1)+".png?appid=2eb61f63e47d19dd32b796a81c9a198c";
     },
     tileSize: new google.maps.Size(256, 256),
-    maxZoom: 9,
+    maxZoom: 15,
     minZoom: 0,
     name: 'mymaptype'
   });
   // this.map.mapTypes.set('mymaptype', myMapType);
   // this.map.setMapTypeId('mymaptype');
   this.map.overlayMapTypes.insertAt(0, myMapType);
+  }
+  updateMap(){
+    console.log(this.mapType);
+    if(this.mapType) {
+      this.openWeatherMap()
+    } else {
+      this.map.overlayMapTypes.clear();
+    }
+  }
+  updateNightMode() {
+    var mapOptions = {
+      zoom: 15,
+      mapTypeControl: false
+  };
+    if(this.mapStyle) {
+      
+      this.map.setMapTypeId("styled_map");
+    } else {
+      this.map.setMapTypeId("roadmap");
+    }
+    
   }
 }

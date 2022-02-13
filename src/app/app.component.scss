@@ -2,13 +2,14 @@ html {
   height: 100%
 }
 body {
-  //background: #366fcd;
+  background: #366fcd;
   //background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   width: 100%;
   height: 100%;
   margin: 0;
   background-attachment:fixed;
   background-repeat: no-repeat;
+  overflow-x: scroll;
 }
 
 #map {
@@ -25,9 +26,9 @@ body {
      
   }
   
-  @media screen and (max-width: 600px) {
+  @media only screen and (min-width: 600px) {
     .forecast-card {
-      height: 350px;
+      max-height:600px;
     }
   }
   .weather-card {
@@ -43,7 +44,6 @@ body {
 }
 .canvas {
   height: 800px;
-  margin: 10px;
 }
 .forecast-card {
   box-sizing: border-box;  
@@ -51,7 +51,7 @@ body {
   border-radius: 10px;
   margin: 10px;
   width: 100%;
-  max-height: 600px;
+  max-height: 300px;
   //margin-left: 10px;
 }
 .forecast-card::-webkit-scrollbar {
@@ -133,4 +133,12 @@ body {
 .map-title {
   padding: 10px 10px 10px 20px;
 
+}
+mat-card  {
+  background: rgb(50,44,55);
+background: linear-gradient(0deg, rgba(50,44,55,1) 0%, rgba(148,165,170,1) 100%);
+}
+table {
+  background: rgb(28,66,71);
+background: linear-gradient(93deg, rgba(28,66,71,1) 46%, rgba(227,249,255,1) 100%);
 }

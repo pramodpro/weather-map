@@ -10,6 +10,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table'
 import { GMapService } from './services/googleMapService/g-map.service';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatTableModule,
-    NgChartsModule
+    NgChartsModule,
+    FormsModule 
   ],
   providers: [openWeatherMapService,HttpClient,GMapService],
   bootstrap: [AppComponent],
